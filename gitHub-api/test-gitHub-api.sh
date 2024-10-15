@@ -15,6 +15,17 @@
 #Direct comparisons and the test command can also be utilized for similar checks. EX: if test -z "$variable"; then
 # echo "The variable is empty."
 
+# include a helper function
+function helper {
+    cmd_line_args=2
+    if [ $# -ne $cmd_line_args ]; then
+        echo "Requires two command line arguments"
+        echo "Make sure to provide repository owner and name"
+        exit
+    fi
+}
+
+helper
 
 # GitHub API URL
 API_URL="https://api.github.com"
@@ -80,9 +91,12 @@ function list_issues {
     fi
 }
 
+
 # Main script
 
 echo "Listing users with read access to ${REPO_OWNER}/${REPO_NAME}..."
 list_users_with_read_access;
+echo "Listing the pull requests for the repository ${REPO_OWNER}/${REPO_NAME}..."
 list_pull_requests;
+echo "Listing the issues for the repository ${REPO_OWNER}/${REPO_NAME}..."
 list_issues
