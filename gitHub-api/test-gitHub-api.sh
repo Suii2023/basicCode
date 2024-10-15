@@ -5,7 +5,9 @@
 # Author: Anurag
 # Date : 14 OCT 2024
 # A script to use gitHub apis via shell script
-# jq -r tells to give the raw output as palin text
+# export the username and access token 
+# uses two input parameters ie, repo owner and name
+# jq -r tells to give the raw output as plain text
 # The -n flag checks if a string is not empty (i.e., has a length greater than zero).
 # The -z flag in a conditional statement checks if a string is empty. Specifically, it returns true if the string has a length of zero.
 # Use -z to check if a string is empty.
@@ -53,7 +55,7 @@ function list_users_with_read_access {
 function list_pull_requests {
     local endpoint="repos/${REPO_OWNER}/${REPO_NAME}/pulls"
 
-    pullrequests="$(github_api_get "$endpoint" | jq -r '.[] | {title: .title, number: .number, state: .state}')"
+    pullrequests="$(github_api_get "$endpoint" | jq -r '.[] | {Username:.user.login, title: .title, number: .number, state: .state}')"
 
     if [[ -z "$pullrequests" ]]; then
         echo "no pull requests found for ${REPO_OWNER}/${REPO_NAME}."
@@ -64,8 +66,23 @@ function list_pull_requests {
     fi
 }
 
+function list_issues {
+    local endpoint="repos/${REPO_OWNER}/${REPO_NAME}/issues"
+
+    issues="$(github_api_get "$endpoint" | jq -r '.[] | {Username:.user.login, title: .title, number: .number, state: .state}')"
+
+    if [[ -z "$issues" ]]; then
+        echo "no issues found for ${REPO_OWNER}/${REPO_NAME}."
+        echo "$issues"
+    else
+        echo "List of issues in ${REPO_OWNER}/${REPO_NAME}:"
+        echo "$issues"
+    fi
+}
+
 # Main script
 
 echo "Listing users with read access to ${REPO_OWNER}/${REPO_NAME}..."
 list_users_with_read_access;
-list_pull_requests
+list_pull_requests;
+list_issues
