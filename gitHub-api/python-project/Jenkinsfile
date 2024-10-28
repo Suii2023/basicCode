@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the code from your repository
-                git 'https://github.com/Suii2023/basicCode.git'
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         // Checkout the code from your repository
+        //         git 'https://github.com/Suii2023/basicCode.git'
+        //     }
+        // }
 
         stage('Build Image') {
             steps {
