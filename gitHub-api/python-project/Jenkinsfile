@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your repository
+                git 'https://github.com/Suii2023/basicCode.git'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    // Build the Docker image locally on the EC2 instance
+                    sh 'docker build -t suii_app:latest .'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Stop and remove any existing container
+                    sh '''
+                    docker stop suii_app || true
+                    docker rm suii_app || true
+                    '''
+                    // Run the newly built Docker image
+                    sh 'docker run -d --name suii_app -p 5000:5000 suii_app:latest'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up workspace after build
+            cleanWs()
+        }
+    }
+}
