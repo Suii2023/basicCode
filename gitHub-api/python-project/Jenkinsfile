@@ -13,7 +13,7 @@ pipeline {
             steps {
                 dir('gitHub-api/python-project') {
                         // Build the Docker image, using the current directory as context
-                        sh 'docker build -t your_flask_app:latest .'
+                        sh 'docker build -t suii_app:latest .'
                     }
             }
         }
