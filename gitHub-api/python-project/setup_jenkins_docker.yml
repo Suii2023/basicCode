@@ -1,0 +1,59 @@
+---
+- name: Install Docker and Jenkins on EC2-2
+  hosts: all
+  become: yes   # Run as sudo
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Ensure Docker is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group (to allow Jenkins to run Docker)
+      user:
+        name: jenkins
+        group: docker
+        append: yes
+
+    - name: Install OpenJDK 17 (required for Jenkins)
+      apt:
+        name: openjdk-17-jdk
+        state: present
+
+    - name: Add Jenkins repository key
+      shell: |
+        curl -fsSL https://pkg.jenkins.io/jenkins.io.key | sudo tee /etc/apt/trusted.gpg.d/jenkins.asc
+
+    - name: Add Jenkins APT repository
+      apt_repository:
+        repo: deb [trusted=yes] https://pkg.jenkins.io/debian-stable binary/
+        state: present
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Ensure Jenkins is running
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    - name: Print Jenkins status
+      command: systemctl status jenkins
+      register: jenkins_status
+      changed_when: false
+
+    - name: Display Jenkins service status
+      debug:
+        var: jenkins_status
