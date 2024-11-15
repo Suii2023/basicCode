@@ -1,0 +1,38 @@
+# macOS
+.DS_Store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+
+# Test and coverage
+.cache/
+.pytest_cache/
+.coverage
+.tox/
+.nox/
+*.cover
+
+# Logs and temp files
+*.log
+*.tmp
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Project-specific cache
+gitHub-api/python-project/__pycache__/
+gitHub-api/python-project/tests/__pycache__/

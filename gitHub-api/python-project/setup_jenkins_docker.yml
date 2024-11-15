@@ -18,7 +18,7 @@
         state: started
         enabled: yes
 
-    - name: Add user to docker group (to allow Jenkins to run Docker)
+    - name: Add user to docker group (to allow Jenkins to run Docker) # this did not work instead had use the sudo usermod -a -G docker jenkins cmd and restart jenkins manually
       user:
         name: jenkins
         groups: docker
@@ -35,7 +35,7 @@
 
     - name: Add Jenkins APT repository
       apt_repository:
-        repo: deb [trusted=yes] https://pkg.jenkins.io/debian-stable binary/
+        repo: deb [trusted=yes] https://pkg.jenkins.io/debian-stable binary/ # Added the trusted =yes to avoid failure. necessary? 
         state: present
 
     - name: Install Jenkins

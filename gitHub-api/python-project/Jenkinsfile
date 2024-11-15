@@ -16,6 +16,13 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                // Test the code before buidling the image 
+                sh 'pytest test/ --junitxml=test-results.xml'
+            }
+        }
+
         stage('Build Image') {
             steps {
                 dir('gitHub-api/python-project') {
@@ -43,7 +50,16 @@ pipeline {
     post {
         always {
             // Clean up workspace after build
+            junit 'test-results.xml' // for Jenkins to parse test result
             cleanWs()
+        }
+        success {
+            emailext subject: 'Jenkins Build Success',
+                     body: 'The Jenkins build was successful.'
+        }
+        failure {
+            emailext subject: 'Jenkins Build Failure',
+                     body: 'The Jenkins build has failed. Please check the console output for details.'
         }
     }
 }
