@@ -1,7 +1,7 @@
 # tests/test_app.py
 import pytest
 from unittest.mock import patch
-from app import app # Adjust this import based on your Flask app’s structure gitHub-api.python-project.app.py
+from src.app import app # Adjust this import based on your Flask app’s structure gitHub-api.python-project.app.py
 
 @pytest.fixture
 def client():
@@ -10,7 +10,7 @@ def client():
         yield client
     
 def test_hello(client):
-    with patch("app.render_template") as mock_render_template:
+    with patch("src.app.render_template") as mock_render_template:
         mock_render_template.return_value = "Rendered template content"  # mock return for the test 
 
     #with patch("app.hello") as mocked_method:
