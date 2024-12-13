@@ -18,7 +18,7 @@
         state: started
         enabled: yes
 
-    - name: Add user to docker group (to allow Jenkins to run Docker) # this did not work instead had use the sudo usermod -a -G docker jenkins cmd and restart jenkins manually
+    - name: Add user to docker group (to allow Jenkins to run Docker) # this did not work instead had to use the sudo usermod -a -G docker jenkins cmd and restart jenkins manually
       user:
         name: jenkins
         groups: docker
