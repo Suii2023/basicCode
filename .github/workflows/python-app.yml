@@ -66,6 +66,7 @@ jobs:
       run: |
         eval $(minikube docker-env)
         docker build -t python-app:latest python-project/
+        docker images
 
     # Step 9: Apply Kubernetes manifests (deployment and service)
     - name: Deploy to Kubernetes
@@ -75,8 +76,6 @@ jobs:
         kubectl get pods
         kubectl get svc
         kubectl describe pods
-    - name: Get Pod Logs
-      run: kubectl logs python-app-6d57bd9c4d-42f7j
 
     # Step 10: Expose Service
     - name: Expose Service
