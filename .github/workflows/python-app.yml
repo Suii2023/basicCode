@@ -58,7 +58,7 @@ jobs:
       run: |
         minikube start --driver=docker
     - name: Verify Minikube Status
-    run: minikube status
+      run: minikube status
 
 
     # Step 8: Build Docker Image in Minikube
