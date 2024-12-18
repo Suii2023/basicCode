@@ -63,19 +63,19 @@ jobs:
     # Step 8: Build Docker Image in Minikube
     - name: Build Docker Image
       run: |
-        
+        eval $(minikube docker-env)
         docker build --no-cache -t python-app:latest python-project/
         docker images
-        docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
+    # docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
 
     # Step 9: Push Docker Image to Docker Hub (Optional but recommended)
-    - name: Log in to Docker Hub
-      run: |
-        echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker info
-        docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
-        docker images  # Verify the tag was applied correctly
-        docker push ${{ secrets.DOCKER_USERNAME }}/python-app:latest
+    # - name: Log in to Docker Hub
+    #   run: |
+    #     echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+    #     docker info
+    #     docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
+    #     docker images  # Verify the tag was applied correctly
+    #     docker push ${{ secrets.DOCKER_USERNAME }}/python-app:latest
 
     # Step 10: Apply Kubernetes manifests (deployment and service)
     - name: Deploy to Kubernetes
