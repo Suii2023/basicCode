@@ -66,6 +66,7 @@ jobs:
         eval $(minikube docker-env)
         docker build -t python-app:latest python-project/
         docker images
+        docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
 
     # Step 9: Push Docker Image to Docker Hub (Optional but recommended)
     - name: Log in to Docker Hub
