@@ -73,6 +73,8 @@ jobs:
       run: |
         echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
         docker info
+        docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
+        docker images  # Verify the tag was applied correctly
         docker push ${{ secrets.DOCKER_USERNAME }}/python-app:latest
 
     # Step 10: Apply Kubernetes manifests (deployment and service)
