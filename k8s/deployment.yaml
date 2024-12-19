@@ -16,5 +16,6 @@ spec:
       - name: python-app
         # image: ${{ secrets.DOCKER_USERNAME }}/python-app:latest 
         image: python-app:latest
+      imagePullPolicy: Never
         ports:
         - containerPort: 5000
