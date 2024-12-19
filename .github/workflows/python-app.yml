@@ -94,11 +94,11 @@ jobs:
       run: |
         kubectl describe pods
         minikube service frontend-python-service --url
-        
-     - name: Wait for manual approval
-        run: |
-          echo "Waiting indefinitely for debugging."
-          sleep infinity
+  
+    - name: Wait for manual approval
+      run: |
+        echo "Waiting indefinitely for debugging."
+        sleep infinity
 
   # deploy:
   #   runs-on: ubuntu-latest
