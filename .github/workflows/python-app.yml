@@ -89,16 +89,10 @@ jobs:
         kubectl get svc
         kubectl describe pods
 
-    
-    - name: Debug Kubernetes
-      run: |
-        kubectl describe pods -l app=frontend-python
-
-
     #Step 11: Expose Service
     - name: Expose Service
       run: |
-        kubectl get pods
+        kubectl describe pods
         minikube service frontend-python-service --url
         
     
