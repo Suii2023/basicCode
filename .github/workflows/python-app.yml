@@ -90,14 +90,15 @@ jobs:
         kubectl describe pods
 
     # Step 11: Expose Service
-    - name: Debug Kubernetes
-      run: |
-        kubectl describe pods -l app=python-app
+    # - name: Debug Kubernetes
+    #   run: |
+    #     kubectl describe pods -l app=python-app
 
     - name: Expose Service
       run: |
-        minikube service frontend-python-service --url
         kubectl get pods
+        minikube service frontend-python-service --url
+        
     
 
   # deploy:
