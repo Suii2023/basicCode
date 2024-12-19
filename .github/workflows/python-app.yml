@@ -61,10 +61,12 @@ jobs:
       run: minikube status
 
     # Step 8: Build Docker Image in Minikube
-    - name: Build Docker Image
+    - name: Build Docker Images
       run: |
         eval $(minikube docker-env)
-        docker build --no-cache -t python-app:latest python-project/
+        docker build --no-cache -f python-project/dockerfile.frontend -t frontend-python:latest python-project/
+        docker build --no-cache -f python-project/dockerfile.backend -t backend-python:latest python-project/
+      #docker build --no-cache -t python-app:latest python-project/
         docker images
     # docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
 
@@ -80,8 +82,8 @@ jobs:
     # Step 10: Apply Kubernetes manifests (deployment and service)
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
+        kubectl apply -f k8s/frontend-deployment.yaml
+        kubectl apply -f k8s/backend-deployment.yaml
         kubectl get pods
         kubectl get svc
         kubectl describe pods
@@ -93,7 +95,7 @@ jobs:
 
     - name: Expose Service
       run: |
-        minikube service python-app-service --url
+        minikube service frontend-python-service --url
         kubectl get pods
     
 

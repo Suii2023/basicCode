@@ -12,26 +12,12 @@
             <th>Name</th>
             <th>Age</th>
         </tr>
+       {% for player in playersList %} 
         <tr>
-            <td>Ronaldo</td>
-            <td>40</td>
+            <td>{{ player.name }}</td>
+            <td>{{ player.age }}</td>
         </tr>
-        <tr>
-            <td>Hazard</td>
-            <td>34</td>
-        </tr>
-        <tr>
-            <td>Leo</td>
-            <td>37</td>
-        </tr>
-        <tr>
-            <td>Ibra</td>
-            <td>41</td>
-        </tr>
-        <tr>
-            <td>Kane</td>
-            <td>34</td>
-        </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
