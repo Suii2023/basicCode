@@ -94,6 +94,7 @@ jobs:
     - name: Expose Service
       run: |
         minikube service python-app-service --url
+        kubectl get pods
     
 
   # deploy:
