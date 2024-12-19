@@ -89,10 +89,10 @@ jobs:
         kubectl get svc
         kubectl describe pods
 
-    # Step 11: Expose Service
-    # - name: Debug Kubernetes
-    #   run: |
-    #     kubectl describe pods -l app=python-app
+    Step 11: Expose Service
+    - name: Debug Kubernetes
+      run: |
+        kubectl describe pods -l app=frontend-python
 
     - name: Expose Service
       run: |
