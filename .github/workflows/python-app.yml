@@ -87,10 +87,14 @@ jobs:
         kubectl describe pods
 
     # Step 11: Expose Service
-    - name: Expose Service
+    - name: Debug Kubernetes
       run: |
         kubectl describe pods -l app=python-app
+
+    - name: Expose Service
+      run: |
         minikube service python-app-service --url
+    
 
   # deploy:
   #   runs-on: ubuntu-latest
