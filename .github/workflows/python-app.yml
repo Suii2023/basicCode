@@ -60,13 +60,12 @@ jobs:
     - name: Verify Minikube Status
       run: minikube status
 
-    # Step 8: Build Docker Image in Minikube
+    # Step 8: Build Docker Images in Minikube
     - name: Build Docker Images
       run: |
         eval $(minikube docker-env)
         docker build --no-cache -f python-project/dockerfile.frontend -t frontend-python:latest python-project/
         docker build --no-cache -f python-project/dockerfile.backend -t backend-python:latest python-project/
-      #docker build --no-cache -t python-app:latest python-project/
         docker images
     # docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
 
