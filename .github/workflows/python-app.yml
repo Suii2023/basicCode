@@ -64,7 +64,7 @@ jobs:
     - name: Build Docker Image
       run: |
         eval $(minikube docker-env)
-        docker build --no-cache -t python-app:latest python-project/
+        docker build --no-cache -t python-app:latest .
         docker images
     # docker tag python-app:latest ${{ secrets.DOCKER_USERNAME }}/python-app:latest  # Tag the image for Docker Hub
 
@@ -85,12 +85,15 @@ jobs:
         kubectl get pods
         kubectl get svc
         kubectl describe pods
-        
+ 
+    - name: Debug Kubernetes Pod
+      run: |
+        kubectl describe pod $(kubectl get pods -n <namespace> -l app=python-app -o jsonpath="{.items[0].metadata.name}") -n <namespace>
+
 
     # Step 11: Expose Service
     - name: Expose Service
       run: |
-        kubectl describe pods -l app=python-app
         minikube service python-app-service --url
 
   # deploy:
