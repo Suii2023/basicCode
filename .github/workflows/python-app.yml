@@ -85,10 +85,12 @@ jobs:
         kubectl get pods
         kubectl get svc
         kubectl describe pods
+        
 
     # Step 11: Expose Service
     - name: Expose Service
       run: |
+        kubectl describe pods -l app=python-app
         minikube service python-app-service --url
 
   # deploy:
